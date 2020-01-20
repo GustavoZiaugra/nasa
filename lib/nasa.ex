@@ -15,25 +15,31 @@ defmodule Nasa do
   then return the final position of all sonar presents.
   """
   def run(path) do
-    output =
-      File.read!(path)
-      |> String.split("\n")
-      |> Stream.with_index(0)
-      |> Enum.filter(&("" != &1))
-      |> Enum.filter(&(!is_nil(&1)))
-      |> Enum.reduce(%{}, fn {v, k}, acc -> Map.put(acc, k, v) end)
+    case File.exists?(path) do
+      true ->
+        content =
+          File.read!(path)
+          |> String.split("\n")
+          |> Stream.with_index(0)
+          |> Enum.filter(&("" != &1))
+          |> Enum.filter(&(!is_nil(&1)))
+          |> Enum.reduce(%{}, fn {v, k}, acc -> Map.put(acc, k, v) end)
 
-    {:ok, set} = KeyValueSet.new()
+        {:ok, set} = KeyValueSet.new()
 
-    highland = parse(:highland, output[0])
+        highland = parse(:highland, content[0])
 
-    Enum.each(output, fn {k, v} ->
-      unless k == 0 || v == "" || rem(k, 2) == 0 do
-        do_action(set, k, parse(:sonar, v), parse(:moves, output[k + 1]), highland)
-      end
-    end)
+        Enum.each(content, fn {k, v} ->
+          unless k == 0 || v == "" || rem(k, 2) == 0 do
+            do_action(set, k, parse(:sonar, v), parse(:moves, content[k + 1]), highland)
+          end
+        end)
 
-    show_result(set)
+        show_result(set)
+
+      false ->
+        raise ArgumentError, "Your file may not exist!"
+    end
   end
 
   # need to figure out how to silence :ok at end of method
