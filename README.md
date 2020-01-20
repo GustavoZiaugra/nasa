@@ -1,21 +1,48 @@
 # Nasa
 
-**TODO: Add description**
+## Contexto
+Um conjunto de sondas foi enviado pela NASA à Marte e irá pousar num planalto. Esse
+planalto, que curiosamente é retangular, deve ser explorado pelas sondas para que
+suas câmeras embutidas consigam ter uma visão completa da área e enviar as
+imagens de volta para a Terra.
+A posição e direção de uma sonda são representadas por uma combinação de
+coordenadas x-y e uma letra representando a direção cardinal para qual a sonda
+aponta, seguindo a rosa dos ventos em inglês.
+O planalto é dividido numa malha para simplificar a navegação. Um exemplo de
+posição seria (0, 0, N), que indica que a sonda está no canto inferior esquerdo e
+apontando para o Norte.
+Para controlar as sondas, a NASA envia uma simples sequência de letras. As letras
+possívis são "L", "R" e "M". Destas, "L" e "R" fazem a sonda virar 90 graus para a
+esquerda ou direita, respectivamente, sem mover a sonda. "M" faz com que a sonda
+mova-se para a frente um ponto da malha, mantendo a mesma direção.
+Nesta malha o ponto ao norte de (x,y) é sempre (x, y+1).
+Você deve fazer um programa que processe uma série de instruções enviadas para as
+sondas que estão explorando este planalto. O formato da entrada e saída deste
+programa segue abaixo.
+A forma de entrada e saída dos dados fica à sua escolha.
 
-## Installation
+### Entrada
+A primeira linha da entrada de dados é a coordenada do ponto superior-direito da
+malha do planalto. Lembrando que a inferior esquerda sempre será (0,0).
+O resto da entrada será informação das sondas que foram implantadas. Cada sonda é
+representada por duas linhas. A primeira indica sua posição inicial e a segunda uma
+série de instruções indicando para a sonda como ela deverá explorar o planalto.
+A posição é representada por dois inteiros e uma letra separados por espaços,
+correspondendo à coordenada X-Y e à direção da sonda. Cada sonda será controlada
+sequencialmente, o que quer dizer que a segunda sonda só irá se movimentar após
+que a primeira tenha terminado suas instruções.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `nasa` to your list of dependencies in `mix.exs`:
+### Saída
+A saída deverá contar uma linha para cada sonda, na mesma ordem de entrada,
+indicando sua coordenada final e direção.
 
-```elixir
-def deps do
-  [
-    {:nasa, "~> 0.1.0"}
-  ]
-end
+## Informações
+Optei por realizar o projeto com **Elixir** na versão **1.9.4** e **Erlang/OTP 22**, utlilizando uma biblioteca auxiliar para manter os estados das sondas(https://github.com/TheFirstAvenger/ets).
+
+## Como rodar?
+01 - Acesse a pasta do projeto<br/>
+02 - Rode o comando iex -S mix<br/>
+03 - Chame o módulo e seu respectivo metodo indicando o caminho do arquivo de texto a ser lido.
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/nasa](https://hexdocs.pm/nasa).
-
+Nasa.run(path)
+```
