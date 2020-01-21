@@ -15,5 +15,17 @@ defmodule NasaTest do
         Nasa.run("path")
       end
     end
+
+    test "when file have invalid data" do
+      assert_raise ArgumentError, "Your file has invalid data", fn ->
+        Nasa.run("test/fixtures/invalid_file_data.txt")
+      end
+    end
+
+    test "when file have invalid action" do
+      assert_raise ArgumentError, "Your file has invalid data", fn ->
+        Nasa.run("test/fixtures/invalid_action_data.txt")
+      end
+    end
   end
 end
