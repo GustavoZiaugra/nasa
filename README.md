@@ -46,3 +46,8 @@ Optei por realizar o projeto com **Elixir** na versão **1.9.4** e **Erlang/OTP 
 ```
 Nasa.run(path)
 ```
+
+## Como rodar os testes?
+```
+mix test
+```
